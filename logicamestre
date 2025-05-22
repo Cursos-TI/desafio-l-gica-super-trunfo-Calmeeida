@@ -1,15 +1,12 @@
-#include <stdio.h>    // Inclui a biblioteca padrão de entrada e saída
-#include <string.h>   // Inclui a biblioteca para manipulação de strings (para strcmp, por exemplo)
+#include <stdio.h>    
+#include <string.h>  
 
-// Função auxiliar para limpar o buffer do teclado após o scanf
 void limparBuffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
 int main() {
-    // --- Dados da Carta 1 (pré-definidos para simplificação, como no requisito) ---
-    // Você pode alterar esses valores ou ainda usar a entrada do usuário como nos desafios anteriores
     char estado1 = 'S';
     char codigo1[4] = "SA1";
     char nomeCidade1[50] = "Sao Paulo";
@@ -20,7 +17,6 @@ int main() {
     float densidadePopulacional1;
     float pibPerCapita1;
 
-    // --- Dados da Carta 2 (pré-definidos para simplificação) ---
     char estado2 = 'R';
     char codigo2[4] = "RJ2";
     char nomeCidade2[50] = "Rio de Janeiro";
@@ -31,15 +27,12 @@ int main() {
     float densidadePopulacional2;
     float pibPerCapita2;
 
-    // Variáveis para a escolha dos atributos
     int escolhaAtributo1 = 0;
     int escolhaAtributo2 = 0;
 
-    // Variáveis para armazenar os nomes dos atributos escolhidos
     char nomeAtributo1[30];
     char nomeAtributo2[30];
 
-    // Variáveis para os valores dos atributos escolhidos de cada carta
     float valorAtributo1_C1, valorAtributo2_C1;
     float valorAtributo1_C2, valorAtributo2_C2;
 
@@ -51,7 +44,6 @@ int main() {
     densidadePopulacional2 = (float)populacao2 / area2;
     pibPerCapita2 = (float)(pib2 * 1000000000) / populacao2;
 
-    // --- Exibição dos dados das Cartas (Opcional, para debug) ---
     printf("--- Dados da Carta 1 ---\n");
     printf("Nome: %s\n", nomeCidade1);
     printf("Populacao: %lu\n", populacao1);
@@ -72,7 +64,6 @@ int main() {
     printf("PIB per Capita: %.2f reais\n", pibPerCapita2);
     printf("\n");
 
-    // --- Escolha do Primeiro Atributo ---
     do {
         printf("--- Escolha o PRIMEIRO atributo para a comparacao ---\n");
         printf("1. Populacao\n");
@@ -83,7 +74,7 @@ int main() {
         printf("6. PIB per Capita\n");
         printf("Sua escolha: ");
         scanf("%d", &escolhaAtributo1);
-        limparBuffer(); // Limpa o buffer do teclado
+        limparBuffer(); 
 
         // Validação da escolha do atributo 1 e atribuição dos valores
         switch (escolhaAtributo1) {
@@ -137,12 +128,12 @@ int main() {
         if (escolhaAtributo1 != 6) printf("6. PIB per Capita\n");
         printf("Sua escolha: ");
         scanf("%d", &escolhaAtributo2);
-        limparBuffer(); // Limpa o buffer do teclado
+        limparBuffer(); 
 
         // Validação: Atributo 2 deve ser válido e diferente do Atributo 1
         if (escolhaAtributo2 < 1 || escolhaAtributo2 > 6 || escolhaAtributo2 == escolhaAtributo1) {
             printf("Opcao invalida ou atributo ja selecionado. Tente novamente.\n\n");
-            escolhaAtributo2 = 0; // Reseta para continuar o loop
+            escolhaAtributo2 = 0; 
         } else {
             // Atribuição dos valores para o segundo atributo
             switch (escolhaAtributo2) {
