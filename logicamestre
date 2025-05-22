@@ -1,0 +1,229 @@
+#include <stdio.h>    // Inclui a biblioteca padrão de entrada e saída
+#include <string.h>   // Inclui a biblioteca para manipulação de strings (para strcmp, por exemplo)
+
+// Função auxiliar para limpar o buffer do teclado após o scanf
+void limparBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+int main() {
+    // --- Dados da Carta 1 (pré-definidos para simplificação, como no requisito) ---
+    // Você pode alterar esses valores ou ainda usar a entrada do usuário como nos desafios anteriores
+    char estado1 = 'S';
+    char codigo1[4] = "SA1";
+    char nomeCidade1[50] = "Sao Paulo";
+    unsigned long int populacao1 = 12396372; // Dados de 2023
+    float area1 = 1521.11;
+    float pib1 = 829.0; // Em bilhões de reais (aproximado)
+    int pontosTuristicos1 = 50;
+    float densidadePopulacional1;
+    float pibPerCapita1;
+
+    // --- Dados da Carta 2 (pré-definidos para simplificação) ---
+    char estado2 = 'R';
+    char codigo2[4] = "RJ2";
+    char nomeCidade2[50] = "Rio de Janeiro";
+    unsigned long int populacao2 = 6775561; // Dados de 2023
+    float area2 = 1200.25;
+    float pib2 = 380.0; // Em bilhões de reais (aproximado)
+    int pontosTuristicos2 = 30;
+    float densidadePopulacional2;
+    float pibPerCapita2;
+
+    // Variáveis para a escolha dos atributos
+    int escolhaAtributo1 = 0;
+    int escolhaAtributo2 = 0;
+
+    // Variáveis para armazenar os nomes dos atributos escolhidos
+    char nomeAtributo1[30];
+    char nomeAtributo2[30];
+
+    // Variáveis para os valores dos atributos escolhidos de cada carta
+    float valorAtributo1_C1, valorAtributo2_C1;
+    float valorAtributo1_C2, valorAtributo2_C2;
+
+    // --- Cálculo da Densidade Populacional e PIB per Capita para Carta 1 ---
+    densidadePopulacional1 = (float)populacao1 / area1;
+    pibPerCapita1 = (float)(pib1 * 1000000000) / populacao1;
+
+    // --- Cálculo da Densidade Populacional e PIB per Capita para Carta 2 ---
+    densidadePopulacional2 = (float)populacao2 / area2;
+    pibPerCapita2 = (float)(pib2 * 1000000000) / populacao2;
+
+    // --- Exibição dos dados das Cartas (Opcional, para debug) ---
+    printf("--- Dados da Carta 1 ---\n");
+    printf("Nome: %s\n", nomeCidade1);
+    printf("Populacao: %lu\n", populacao1);
+    printf("Area: %.2f km2\n", area1);
+    printf("PIB: %.2f bilhoes\n", pib1);
+    printf("Pontos Turisticos: %d\n", pontosTuristicos1);
+    printf("Densidade Populacional: %.2f hab/km2\n", densidadePopulacional1);
+    printf("PIB per Capita: %.2f reais\n", pibPerCapita1);
+    printf("\n");
+
+    printf("--- Dados da Carta 2 ---\n");
+    printf("Nome: %s\n", nomeCidade2);
+    printf("Populacao: %lu\n", populacao2);
+    printf("Area: %.2f km2\n", area2);
+    printf("PIB: %.2f bilhoes\n", pib2);
+    printf("Pontos Turisticos: %d\n", pontosTuristicos2);
+    printf("Densidade Populacional: %.2f hab/km2\n", densidadePopulacional2);
+    printf("PIB per Capita: %.2f reais\n", pibPerCapita2);
+    printf("\n");
+
+    // --- Escolha do Primeiro Atributo ---
+    do {
+        printf("--- Escolha o PRIMEIRO atributo para a comparacao ---\n");
+        printf("1. Populacao\n");
+        printf("2. Area\n");
+        printf("3. PIB\n");
+        printf("4. Pontos Turisticos\n");
+        printf("5. Densidade Populacional\n");
+        printf("6. PIB per Capita\n");
+        printf("Sua escolha: ");
+        scanf("%d", &escolhaAtributo1);
+        limparBuffer(); // Limpa o buffer do teclado
+
+        // Validação da escolha do atributo 1 e atribuição dos valores
+        switch (escolhaAtributo1) {
+            case 1:
+                strcpy(nomeAtributo1, "Populacao");
+                valorAtributo1_C1 = (float)populacao1;
+                valorAtributo1_C2 = (float)populacao2;
+                break;
+            case 2:
+                strcpy(nomeAtributo1, "Area");
+                valorAtributo1_C1 = area1;
+                valorAtributo1_C2 = area2;
+                break;
+            case 3:
+                strcpy(nomeAtributo1, "PIB");
+                valorAtributo1_C1 = pib1;
+                valorAtributo1_C2 = pib2;
+                break;
+            case 4:
+                strcpy(nomeAtributo1, "Pontos Turisticos");
+                valorAtributo1_C1 = (float)pontosTuristicos1;
+                valorAtributo1_C2 = (float)pontosTuristicos2;
+                break;
+            case 5:
+                strcpy(nomeAtributo1, "Densidade Populacional");
+                valorAtributo1_C1 = densidadePopulacional1;
+                valorAtributo1_C2 = densidadePopulacional2;
+                break;
+            case 6:
+                strcpy(nomeAtributo1, "PIB per Capita");
+                valorAtributo1_C1 = pibPerCapita1;
+                valorAtributo1_C2 = pibPerCapita2;
+                break;
+            default:
+                printf("Opcao invalida para o primeiro atributo. Tente novamente.\n\n");
+                break;
+        }
+    } while (escolhaAtributo1 < 1 || escolhaAtributo1 > 6); // Repete enquanto a escolha for inválida
+
+    printf("\nVoce escolheu: %s\n\n", nomeAtributo1);
+
+    // --- Escolha do Segundo Atributo (Dinâmico) ---
+    do {
+        printf("--- Escolha o SEGUNDO atributo para a comparacao ---\n");
+        printf("Opcoes disponiveis:\n");
+        if (escolhaAtributo1 != 1) printf("1. Populacao\n");
+        if (escolhaAtributo1 != 2) printf("2. Area\n");
+        if (escolhaAtributo1 != 3) printf("3. PIB\n");
+        if (escolhaAtributo1 != 4) printf("4. Pontos Turisticos\n");
+        if (escolhaAtributo1 != 5) printf("5. Densidade Populacional\n");
+        if (escolhaAtributo1 != 6) printf("6. PIB per Capita\n");
+        printf("Sua escolha: ");
+        scanf("%d", &escolhaAtributo2);
+        limparBuffer(); // Limpa o buffer do teclado
+
+        // Validação: Atributo 2 deve ser válido e diferente do Atributo 1
+        if (escolhaAtributo2 < 1 || escolhaAtributo2 > 6 || escolhaAtributo2 == escolhaAtributo1) {
+            printf("Opcao invalida ou atributo ja selecionado. Tente novamente.\n\n");
+            escolhaAtributo2 = 0; // Reseta para continuar o loop
+        } else {
+            // Atribuição dos valores para o segundo atributo
+            switch (escolhaAtributo2) {
+                case 1:
+                    strcpy(nomeAtributo2, "Populacao");
+                    valorAtributo2_C1 = (float)populacao1;
+                    valorAtributo2_C2 = (float)populacao2;
+                    break;
+                case 2:
+                    strcpy(nomeAtributo2, "Area");
+                    valorAtributo2_C1 = area1;
+                    valorAtributo2_C2 = area2;
+                    break;
+                case 3:
+                    strcpy(nomeAtributo2, "PIB");
+                    valorAtributo2_C1 = pib1;
+                    valorAtributo2_C2 = pib2;
+                    break;
+                case 4:
+                    strcpy(nomeAtributo2, "Pontos Turisticos");
+                    valorAtributo2_C1 = (float)pontosTuristicos1;
+                    valorAtributo2_C2 = (float)pontosTuristicos2;
+                    break;
+                case 5:
+                    strcpy(nomeAtributo2, "Densidade Populacional");
+                    valorAtributo2_C1 = densidadePopulacional1;
+                    valorAtributo2_C2 = densidadePopulacional2;
+                    break;
+                case 6:
+                    strcpy(nomeAtributo2, "PIB per Capita");
+                    valorAtributo2_C1 = pibPerCapita1;
+                    valorAtributo2_C2 = pibPerCapita2;
+                    break;
+            }
+        }
+    } while (escolhaAtributo2 < 1 || escolhaAtributo2 > 6 || escolhaAtributo2 == escolhaAtributo1);
+
+    printf("\nVoce escolheu: %s\n\n", nomeAtributo2);
+
+    // --- Exibição dos resultados da comparação ---
+    printf("--- Resultado da Rodada ---\n");
+    printf("Paises: %s x %s\n", nomeCidade1, nomeCidade2);
+    printf("Atributos comparados: %s e %s\n\n", nomeAtributo1, nomeAtributo2);
+
+    // Variáveis para armazenar o resultado da comparação de cada atributo (1 para C1 vence, 2 para C2 vence, 0 para empate)
+    int resultadoAtributo1, resultadoAtributo2;
+
+    // Comparação do PRIMEIRO atributo
+    printf("Comparando %s:\n", nomeAtributo1);
+    printf("%s: %.2f | %s: %.2f\n", nomeCidade1, valorAtributo1_C1, nomeCidade2, valorAtributo1_C2);
+    if (escolhaAtributo1 == 5) { // Densidade Populacional: menor vence
+        resultadoAtributo1 = (valorAtributo1_C1 < valorAtributo1_C2) ? 1 : (valorAtributo1_C2 < valorAtributo1_C1 ? 2 : 0);
+    } else { // Outros atributos: maior vence
+        resultadoAtributo1 = (valorAtributo1_C1 > valorAtributo1_C2) ? 1 : (valorAtributo1_C2 > valorAtributo1_C1 ? 2 : 0);
+    }
+    printf("Vencedor do %s: %s\n\n", nomeAtributo1, (resultadoAtributo1 == 1) ? nomeCidade1 : (resultadoAtributo1 == 2 ? nomeCidade2 : "Empate"));
+
+    // Comparação do SEGUNDO atributo
+    printf("Comparando %s:\n", nomeAtributo2);
+    printf("%s: %.2f | %s: %.2f\n", nomeCidade1, valorAtributo2_C1, nomeCidade2, valorAtributo2_C2);
+    if (escolhaAtributo2 == 5) { // Densidade Populacional: menor vence
+        resultadoAtributo2 = (valorAtributo2_C1 < valorAtributo2_C2) ? 1 : (valorAtributo2_C2 < valorAtributo2_C1 ? 2 : 0);
+    } else { // Outros atributos: maior vence
+        resultadoAtributo2 = (valorAtributo2_C1 > valorAtributo2_C2) ? 1 : (valorAtributo2_C2 > valorAtributo2_C1 ? 2 : 0);
+    }
+    printf("Vencedor do %s: %s\n\n", nomeAtributo2, (resultadoAtributo2 == 1) ? nomeCidade1 : (resultadoAtributo2 == 2 ? nomeCidade2 : "Empate"));
+
+    // --- Soma dos Atributos e Resultado Final ---
+    float somaAtributosC1 = valorAtributo1_C1 + valorAtributo2_C1;
+    float somaAtributosC2 = valorAtributo1_C2 + valorAtributo2_C2;
+
+    printf("Soma dos atributos para %s: %.2f\n", nomeCidade1, somaAtributosC1);
+    printf("Soma dos atributos para %s: %.2f\n", nomeCidade2, somaAtributosC2);
+
+    if (somaAtributosC1 > somaAtributosC2) {
+        printf("\nResultado Final da Rodada: %s venceu!\n", nomeCidade1);
+    } else if (somaAtributosC2 > somaAtributosC1) {
+        printf("\nResultado Final da Rodada: %s venceu!\n", nomeCidade2);
+    } else {
+        printf("\nResultado Final da Rodada: Empate!\n");
+    }
+
+    return 0;
+}
